@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -x -e
 
 TeamCityUrl=$TEAMCITY_URL
 TeamCityUser=$TeamCityUsername
