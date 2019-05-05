@@ -39,8 +39,8 @@ Versioning () {
     local artifact_name=$1
     source ./version.txt
     local shortCommit=$(git log -n 1 --pretty=format:'%h')
-    cp $artifact_name artifacts.$VERSION.$shortCommit
-    export FINALVERSION=artifacts.$VERSION.$shortCommit
+    cp $artifact_name artifacts.$VERSION.$shortCommit.tgz
+    export FINALVERSION=artifacts.$VERSION.$shortCommit.tgz
 }
 
 DownloadArtifact $(GetLatestBuildData $TeamCityBuildID | awk -F "," '{print $1}') "artifacts.tgz"
