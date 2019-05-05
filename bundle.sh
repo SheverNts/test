@@ -12,8 +12,7 @@ GetLatestBuildData () {
     local BuildType=$1
     local CPATH=$PATH
     export PATH="$PATH:./Utility"
-    curl -u ${TeamCityUser}:${TeamCityPasswd} ${$TeamCityUrl}/httpAuth/app/rest/builds/?locator=buildType:${BuildType},status:success,count:1  -o metadata.xml
-    xml2json -t xml2json -o metadata.json
+    curl -u ${TeamCityUser}:${TeamCityPasswd} ${TeamCityUrl}/httpAuth/app/rest/builds/?locator=buildType:${BuildType},status:success,count:1  | xml2json -t xml2json -o metadata.json
     local id=$(cat metadata.json | sed  s/@//g | jq -r .builds.build.id)
     local state=$(cat metadata.json | sed  s/@//g | jq -r .builds.build.state)
     local status=$(cat metadata.json | sed  s/@//g | jq -r .builds.build.status)
