@@ -11,9 +11,7 @@ GetLatestBuildData () {
     local BuildType=$1
     local CPATH=$PATH
     export PATH="$PATH:./Utility"
-    curl -u ${TeamCityUser}:${TeamCityPasswd} \
-        ${$TeamCityUrl}/httpAuth/app/rest/builds/?locator=buildType:${BuildType},status:success,count:1 | xml2json \
-        -t xml2json -o metadata.json
+    curl -u ${TeamCityUser}:${TeamCityPasswd} ${$TeamCityUrl}/httpAuth/app/rest/builds/?locator=buildType:${BuildType},status:success,count:1 | xml2json -t xml2json -o metadata.json
     local id=$(cat metadata.json | sed  s/@//g | jq -r .builds.build.id)
     local state=$(cat metadata.json | sed  s/@//g | jq -r .builds.build.state)
     local status=$(cat metadata.json | sed  s/@//g | jq -r .builds.build.status)
@@ -26,15 +24,13 @@ DownloadArtifact() {
     local BuildId=$1
     local ArtifactName=$2
     printf "\n Downloading Artifacts from Teamcity >> $TeamCityUrl:$TeamCityPort \n"
-    curl -k -L -u ${TeamCityUser}:${TeamCityPasswd} \
-        ${TeamCityUrl}/repository/downloadAll/Test_Build/${BuildId}:id/artifacts.tgz -o ArtifactName
+    curl -k -L -u ${TeamCityUser}:${TeamCityPasswd} ${TeamCityUrl}/repository/downloadAll/Test_Build/${BuildId}:id/artifacts.tgz -o ArtifactName
 }
 
 UploadArtifact() {
     local artifact_name=$1
     printf "\n Upload Artifact to Nessus >> $NexusUrl \n"
-    curl -k -L -v -u admin:admin123 --upload-file $artifact_name \
-        ${NexusUrl}/nexus/content/repositories/releases/org/
+    curl -k -L -v -u admin:admin123 --upload-file $artifact_name ${NexusUrl}/nexus/content/repositories/releases/org/
 }
 
 Versioning () {
