@@ -6,7 +6,7 @@ node {
     currentBuild.displayName = "#${BUILD_NUMBER} ${env.BRANCH_NAME}-${VERSION}.${shortCommit}"
     currentBuild.description = "fooDescription "
     stage('build') {
-        sh "echo build"
+        sh "sh bundle.sh"
         sh "ls -la"
         sh "env"
     }
