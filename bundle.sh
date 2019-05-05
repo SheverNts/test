@@ -32,7 +32,7 @@ DownloadArtifact() {
 UploadArtifact() {
     local artifact_name=$1
     printf "\n Upload Artifact to Nessus >> $NexusUrl \n"
-    curl -k -L -v -u admin:admin123 --upload-file $artifact_name ${NexusUrl}/nexus/content/repositories/releases/org/
+    curl -k -L -v -u admin:admin123 --upload-file $artifact_name ${NexusUrl}
 }
 
 Versioning () {
