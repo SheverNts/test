@@ -7,6 +7,7 @@ TeamCityPasswd=$TeamCityPassword
 NexusUrl=$NEXUS_URL
 NexusUser=$NexusUsername
 NexusPasswd=$NexusPassword
+TeamCityBuildID="Test"
 
 GetLatestBuildData () {
     local BuildType=$1
@@ -41,6 +42,6 @@ Versioning () {
     export FINALVERSION=artifacts.$VERSION.$shortCommit
 }
 
-DownloadArtifact $(GetLatestBuildData| awk -F "," '{print $1}') "artifacts.tgz"
+DownloadArtifact $(GetLatestBuildData $TeamCityBuildID | awk -F "," '{print $1}') "artifacts.tgz"
 Versioning artifacts.tgz 
 UploadArtifact $FINALVERSION
