@@ -12,11 +12,12 @@ GetLatestBuildData () {
     local BuildType=$1
     local CPATH=$PATH
     export PATH="$PATH:./Utility"
-    curl -u ${TeamCityUser}:${TeamCityPasswd} ${$TeamCityUrl}/httpAuth/app/rest/builds/?locator=buildType:${BuildType},status:success,count:1 | xml2json -t xml2json -o metadata.json
+    curl -u ${TeamCityUser}:${TeamCityPasswd} ${$TeamCityUrl}/httpAuth/app/rest/builds/?locator=buildType:${BuildType},status:success,count:1  -o metadata.xml
+    xml2json -t xml2json -o metadata.json
     local id=$(cat metadata.json | sed  s/@//g | jq -r .builds.build.id)
     local state=$(cat metadata.json | sed  s/@//g | jq -r .builds.build.state)
     local status=$(cat metadata.json | sed  s/@//g | jq -r .builds.build.status)
-    rm -rf metadata.json
+   # rm -rf metadata.json metadata.xml
     export PATH=$CPATH
     printf "$id,$state,$status"
 }
@@ -41,6 +42,6 @@ Versioning () {
     export FINALVERSION=artifacts.$VERSION.$shortCommit
 }
 
-DownloadArtifact $(GetLatestBuildData| awk -F "," '{print $1}') artifacts.tgz
+DownloadArtifact $(GetLatestBuildData| awk -F "," '{print $1}') "artifacts.tgz"
 Versioning artifacts.tgz 
 UploadArtifact $FINALVERSION
