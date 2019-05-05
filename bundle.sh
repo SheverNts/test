@@ -1,5 +1,6 @@
 #!/bin/bash
-set -x 
+set -x
+
 TeamCityUrl=$TEAMCITY_URL
 TeamCityUser=$TeamCityUsername
 TeamCityPasswd=$TeamCityPassword
@@ -35,7 +36,7 @@ UploadArtifact() {
 
 Versioning () {
     local artifact_name=$1
-    source version.txt
+    source ./version.txt
     cp $artifact_name artifacts.$VERSION.$shortCommit
     export FINALVERSION=artifacts.$VERSION.$shortCommit
 }
