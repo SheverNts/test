@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x 
 TeamCityUrl=$TEAMCITY_URL
 TeamCityUser= 
 TeamCityPasswd=
