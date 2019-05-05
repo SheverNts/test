@@ -25,8 +25,9 @@ GetLatestBuildData () {
 DownloadArtifact() {
     local BuildId=$1
     local ArtifactName=$2
+    local ProjectBuildID=$3
     printf "\n Downloading Artifacts from Teamcity >> $TeamCityUrl:$TeamCityPort \n"
-    curl -k -L -u ${TeamCityUser}:${TeamCityPasswd} ${TeamCityUrl}/repository/downloadAll/Test_Build/${BuildId}:id/artifacts.tgz -o $ArtifactName
+    curl -k -L -u ${TeamCityUser}:${TeamCityPasswd} ${TeamCityUrl}/repository/downloadAll/${ProjectBuildID}/${BuildId}:id/artifacts.tgz -o $ArtifactName
 }
 
 UploadArtifact() {
@@ -43,6 +44,6 @@ Versioning () {
     export FINALVERSION=artifacts.$VERSION.$shortCommit.tgz
 }
 
-DownloadArtifact $(GetLatestBuildData $TeamCityBuildID | awk -F "," '{print $1}') "artifacts.tgz"
+DownloadArtifact $(GetLatestBuildData $TeamCityBuildID | awk -F "," '{print $1}') "artifacts.tgz" $TeamCityBuildID
 Versioning artifacts.tgz 
 UploadArtifact $FINALVERSION
