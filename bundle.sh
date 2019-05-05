@@ -7,7 +7,7 @@ TeamCityPasswd=$TeamCityPassword
 NexusUrl=$NEXUS_URL
 NexusUser=$NexusUsername
 NexusPasswd=$NexusPassword
-TeamCityBuildID="Test"
+TeamCityBuildID="Test_Build"
 
 GetLatestBuildData () {
     local BuildType=$1
