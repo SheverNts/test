@@ -1,11 +1,11 @@
 #!/bin/bash
 set -x 
 TeamCityUrl=$TEAMCITY_URL
-TeamCityUser= 
-TeamCityPasswd=
+TeamCityUser=$TeamCityUsername
+TeamCityPasswd=$TeamCityPassword
 NexusUrl=$NEXUS_URL
-NexusUser=
-NexusPasswd=
+NexusUser=$NexusUsername
+NexusPasswd=$NexusPassword
 
 GetLatestBuildData () {
     local BuildType=$1
