@@ -25,7 +25,7 @@ DownloadArtifact() {
     local BuildId=$1
     local ArtifactName=$2
     printf "\n Downloading Artifacts from Teamcity >> $TeamCityUrl:$TeamCityPort \n"
-    curl -k -L -u ${TeamCityUser}:${TeamCityPasswd} ${TeamCityUrl}/repository/downloadAll/Test_Build/${BuildId}:id/artifacts.tgz -o ArtifactName
+    curl -k -L -u ${TeamCityUser}:${TeamCityPasswd} ${TeamCityUrl}/repository/downloadAll/Test_Build/${BuildId}:id/artifacts.tgz -o $ArtifactName
 }
 
 UploadArtifact() {
