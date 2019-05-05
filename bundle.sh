@@ -38,6 +38,7 @@ UploadArtifact() {
 Versioning () {
     local artifact_name=$1
     source ./version.txt
+    local shortCommit=$(git log -n 1 --pretty=format:'%h')
     cp $artifact_name artifacts.$VERSION.$shortCommit
     export FINALVERSION=artifacts.$VERSION.$shortCommit
 }
