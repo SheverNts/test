@@ -29,7 +29,7 @@ println (repo_names)
 def parser = new groovy.json.JsonSlurper()
 def path = jobFactory.readFileFromWorkspace('indhu/env.json')
 env_data = parser.parseText(path)
-env_list = env_list.keySet() 
+env_list = env_data.keySet() 
 devEnvList = []
 
 // for (data in env_data) {
