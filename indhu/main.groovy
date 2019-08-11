@@ -28,7 +28,7 @@ repo_names.add(repo.name)
 }
 println (repo_names)
 
-def repo_names = "sheverouhofuwqe"
+def repo_namess = "sheverouhofuwqe"
 
 def CreatePipelineJob() {
     pipelineJob("shever-testing") {
@@ -36,7 +36,7 @@ def CreatePipelineJob() {
             numToKeep(20)
         }
     environmentVariables {
-            envs('repo_list': "${repo_names}")
+            envs('repo_list': "${repo_namess}")
         }
 
         //displayName("#${BUILD_NUMBER} ${ENV}")
