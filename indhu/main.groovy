@@ -25,3 +25,26 @@ for ( repo in repo_list ) {
 println ("utfvrefyjr")
 println (repo.name)
 }
+
+
+
+def CreatePipelineJob() {
+    pipelineJob("shever-testing") {
+        environmentVariables {
+            envs('dslbranch': "${BRANCH}")
+        }
+        logRotator {
+            numToKeep(20)
+        }
+
+        //displayName("#${BUILD_NUMBER} ${ENV}")
+        definition {
+            cps {
+                script(readFileFromWorkspace('pipeline.groovy'))
+                sandbox()
+                }
+                }
+                }
+
+}
+CreatePipelineJob()
