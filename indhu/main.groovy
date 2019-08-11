@@ -20,10 +20,11 @@ def output = urlConnection.getInputStream().getText();
 
 def data = new JsonSlurper().parseText(output)
 def repo_list = data.values
-
+def repo_names = [ ]
 for ( repo in repo_list ) {
 println ("utfvrefyjr")
 println (repo.name)
+repo_names.add(repo.name)
 }
 
 
@@ -32,6 +33,9 @@ def CreatePipelineJob() {
     pipelineJob("shever-testing") {
         logRotator {
             numToKeep(20)
+        }
+    environmentVariables {
+            envs('repo_list': repo_names)
         }
 
         //displayName("#${BUILD_NUMBER} ${ENV}")
