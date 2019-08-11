@@ -1,12 +1,6 @@
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import groovy.json.JsonSlurper
-
 import org.apache.commons.codec.binary.Base64;
+
 			String webPage = "http://192.168.43.238:7990/rest/api/1.0/projects/HALO/repos";
 			String name = "shever";
 			String password = "redhat";
