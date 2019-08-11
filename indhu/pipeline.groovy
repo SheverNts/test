@@ -1,4 +1,5 @@
-properties([ 
+node {
+    properties([ 
 parameters([
 [$class: 'ChoiceParameter', 
 choiceType: 'PT_SINGLE_SELECT', 
@@ -32,7 +33,6 @@ fallbackScript: [classpath: [],
                 ]
         ],
 
-
 [$class: 'CascadeChoiceParameter', 
 choiceType: 'PT_SINGLE_SELECT', 
 description: 'Active Choices Reactive parameter',
@@ -53,86 +53,49 @@ string(defaultValue: '', description: '', name: 'Artifact_Name', trim: true)
 ])
 ])
 
-pipeline {
-    agent any
-    environment {
-    ARTIFACT_NAME="${env.JOB_NAME}-${env.BUILD_NUMBER}"
-    instance = sh (returnStdout: true, script: "`cat env.json |jq -r '.$Server.instance'`")
-    }
-    tools { 
-        maven 'maven-3.6.1' 
-        jdk 'jdk8' 
-        }
-    stages {
+
+
+try {
         stage ('SCM') {
-            steps {
                 script {
                   git branch: 'maven-tomcat', url: 'https://gitlab.com/beer786/newproject.git';
                 }
                   }
-                }
+
 
         stage('Build') {
-           steps {    
                 //sh 'mvn clean package -DskipTests=true'     
                 sh 'echo hei'
-                }      
-              }
+                }
 
-        stage('test') {
-         steps {
+
+stage('test') {
             //sh 'mvn test'
             sh 'echo helo'
                }
-             }
+             
  
         stage('Archive') {
-            steps {
+
              // archiveArtifacts 'target/*zip'
              sh 'echo hleo'
                 } 
-             }  
+             
         stage('Environment') {
-            steps {
-               sh '''
-                export instance = `cat env.json | jq -r .$Server.instance`
-                export path = `cat env.json | jq -r .$Server.instancePath`
-                '''
+              sh 'echo ecn'
+               //sh '''
+                //export instance = `cat env.json | jq -r .$Server.instance`
+                //export path = `cat env.json | jq -r .$Server.instancePath`
+                //'''
             }
+
+} finally {
+
+stage('junit')  {
+             junit 'target/surefire-reports/*.xml'
         }
-        stage('publish_nexus') {
-            steps {
-                script {
-                    pom = readMavenPom  file: "pom.xml"
-                    pom2 = readMavenPom file:  "src/assembly/testpom.xml"
-                    ArtId = pom.artifactId
-                    GrpId = pom.groupId
-                    Pkg = pom.packaging
-                    zipid = pom2.groupId
-                    echo "pom2 file ${zipid}"
-                    nexusArtifactUploader artifacts: [[artifactId: ArtId, classifier: '', file: "target/maven-simple-${ARTIFACT_NAME}-SNAPSHOT.jar", type: Pkg ]], 
-                    credentialsId: 'nexus-creds', 
-                    groupId: GrpId, 
-                    nexusUrl: 'localhost:8081', 
-                    nexusVersion: 'nexus3',
-                    protocol: 'http', 
-                    repository: 'test-maven', 
-                    version: '0.2.2'           
-            }
-            }
-        }
-        stage('Downstream') {
-            steps {
-                sh 'echo ${env.path}'
-                build job: 'test-parameter', 
-                parameters: [string(name: 'ARTIFACT_NAME', value: "${ARTIFACT_NAME}")]
-                }
-            }
-    }
-    
-    // post {
-    //     always {
-    //         junit 'target/surefire-reports/*.xml'
-    //     }
-    //}
+
 }
+
+}
+
