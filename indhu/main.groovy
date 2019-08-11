@@ -32,13 +32,13 @@ env_data = parser.parseText(path)
 env_list = env_data.keySet() 
 devEnvList = []
 
-// for (data in env_data) {
-// def matcher = data.key =~ /DEV\d/
-// if ( matcher.find()){
-//     devEnvList.add(data)
-// }
+for (data in env_data) {
+def matcher = data.key =~ /DEV\d/
+if ( matcher.find()){
+    devEnvList.add('"' + data + '"')
+}
 
-// }
+}
 
 
 def CreatePipelineJob() {
@@ -50,6 +50,7 @@ def CreatePipelineJob() {
             envs('repo_list': "${repo_names}")
             envs('env_data': "${env_data}")
             envs('env_list': "${env_list}")
+            envs('devEnvList': "${devEnvList}")
         }
 
         //displayName("#${BUILD_NUMBER} ${ENV}")

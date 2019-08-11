@@ -1,4 +1,5 @@
 node {
+
     properties([ 
 parameters([
 [$class: 'ChoiceParameter', 
@@ -13,7 +14,7 @@ fallbackScript: [classpath: [],
                 script: 'return ["ERROR"]'], 
                 script: [classpath: [], 
                          sandbox: true,
-                        script: "return['Dev','Stag','Prod','Test']"]
+                        script: "return${devEnvList}"]
                 ]
         ], 
 
