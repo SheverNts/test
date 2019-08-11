@@ -30,9 +30,6 @@ println (repo.name)
 
 def CreatePipelineJob() {
     pipelineJob("shever-testing") {
-        environmentVariables {
-            envs('dslbranch': "${BRANCH}")
-        }
         logRotator {
             numToKeep(20)
         }
