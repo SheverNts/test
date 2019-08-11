@@ -36,7 +36,7 @@ def CreatePipelineJob() {
             numToKeep(20)
         }
     environmentVariables {
-            envs('repo_list': repo_names)
+            envs('repo_list': "${repo_names}")
         }
 
         //displayName("#${BUILD_NUMBER} ${ENV}")
