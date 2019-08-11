@@ -37,7 +37,7 @@ def CreatePipelineJob() {
         //displayName("#${BUILD_NUMBER} ${ENV}")
         definition {
             cps {
-                script(readFileFromWorkspace('pipeline.groovy'))
+                script(readFileFromWorkspace('indhu/pipeline.groovy'))
                 sandbox()
                 }
                 }
