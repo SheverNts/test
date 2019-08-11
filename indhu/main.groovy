@@ -28,7 +28,7 @@ repo_names.add(repo.name)
 }
 println (repo_names)
 
-
+def repo_names = "sheverouhofuwqe"
 
 def CreatePipelineJob() {
     pipelineJob("shever-testing") {
