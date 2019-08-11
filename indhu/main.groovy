@@ -32,10 +32,10 @@ env_data = parser.parseText(path)
 env_list = env_data.keySet() 
 devEnvList = []
 
-for (data in env_data) {
-def matcher = data.key =~ /DEV\d/
+for (edata in env_data) {
+def matcher = edata.key =~ /DEV\d/
 if ( matcher.find()){
-    devEnvList.add('"' + data + '"')
+    devEnvList.add('"' + edata.key + '"')
 }
 
 }
