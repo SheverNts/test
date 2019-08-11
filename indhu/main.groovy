@@ -24,11 +24,10 @@ repo_names = [ ]
 for ( repo in repo_list ) {
 println ("utfvrefyjr")
 println (repo.name)
-repo_names.add(repo.name)
+repo_names.add('"' + repo.name + '"')
 }
 println (repo_names)
 
-repo_namess = "sheverouhofuwqe"
 
 def CreatePipelineJob() {
     pipelineJob("shever-testing") {
